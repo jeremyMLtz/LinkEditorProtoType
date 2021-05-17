@@ -1,25 +1,44 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import styled from '@emotion/styled'
+import Editor from './components/Editor';
+import MockVideoPage from './components/MockVideoPage';
+import { StateProvider } from './editorContext.js';
 
-function App() {
+const initialState = {
+  url: '',
+  dbMockUrl: '',
+  editorText: '',
+}
+
+function App({className}) {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={className}>
+      <StateProvider initialState={initialState}>
+        <span><strong>Editor:</strong></span>
+        <Editor />
+        <hr />
+        <span><strong>Video Landing Page:</strong></span>
+        <MockVideoPage />
+      </StateProvider>
     </div>
   );
 }
 
-export default App;
+const styledApp = styled(App)`
+  span {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  hr {
+    border: none;
+    margin: 20px 0;
+    border-top: 1px solid #eaeaea;
+  }
+
+  
+`
+
+export default styledApp;
